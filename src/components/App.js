@@ -5,10 +5,11 @@ import Dummy from './Dummy';
 import getWordFromApi from '../services/api';
 // styles
 import '../styles/App.scss';
-import '../styles/Dummy.scss';
 import '../styles/Letters.scss';
 import '../styles/Form.scss';
-import '../styles/Header.scss';
+import SolutionLetters from './SolutionLetters';
+import ErrorLetters from './ErrorLetters';
+import Form from './Form';
 
 function App() {
   const [word, setWord] = useState('');
@@ -22,7 +23,6 @@ function App() {
   }, []);
 
   // events
-
   const handleKeyDown = (ev) => {
     // Sabrías decir para qué es esta línea
     ev.target.setSelectionRange(0, 1);
@@ -40,9 +40,7 @@ function App() {
   };
 
   const getNumberOfErrors = () => {
-    const errorLetters = userLetters.filter(
-      (letter) => word.includes(letter) === false
-    );
+    const errorLetters = userLetters.filter((letter) => word.includes(letter) === false);
     return errorLetters.length;
   };
 
@@ -59,10 +57,7 @@ function App() {
   };
 
   const renderErrorLetters = () => {
-    const errorLetters = userLetters.filter(
-      (letter) =>
-        word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
-    );
+    const errorLetters = userLetters.filter((letter) => word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false);
     return errorLetters.map((letter, index) => {
       return (
         <li key={index} className='letter'>
@@ -88,32 +83,13 @@ function App() {
 
       <main className='main'>
         <section>
-          <div className='solution'>
-            <h2 className='title'>Solución:</h2>
-            <ul className='letters'>{renderSolutionLetters()}</ul>
-          </div>
-          <div className='error'>
-            <h2 className='title'>Letras falladas:</h2>
-            <ul className='letters'>{renderErrorLetters()}</ul>
-          </div>
-          <form className='form' onSubmit={handleSubmit}>
-            <label className='title' htmlFor='last-letter'>
-              Escribe una letra:
-            </label>
-            <input
-              autoFocus
-              autoComplete='off'
-              className='form__input'
-              maxLength='1'
-              type='text'
-              name='last-letter'
-              id='last-letter'
-              value={lastLetter}
-              onKeyDown={handleKeyDown}
-              onChange={handleChange}
-            />
-          </form>
+          <SolutionLetters renderSolutionLetters={renderSolutionLetters}></SolutionLetters>
+
+          <ErrorLetters renderErrorLetters={renderErrorLetters}></ErrorLetters>
+
+          <Form handleSubmit={handleSubmit} handleKeyDown={handleKeyDown} handleChange={handleChange} lastLetter={lastLetter}></Form>
         </section>
+
         <Dummy numberOfErrors={getNumberOfErrors}></Dummy>
       </main>
     </div>
