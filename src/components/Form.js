@@ -1,15 +1,15 @@
 const Form = (props) => {
   //submit
-  const handleSubmit = () => {
-    props.handleSubmit();
+  const handleSubmit = (event) => {
+    props.handleSubmit(event);
   };
   //input
-  const handleKeyDown = () => {
-    props.handleKeyDown();
+  const handleKeyDown = (event) => {
+    props.handleKeyDown(event);
   };
   //OnChange
-  const handleChange = () => {
-    props.handleChange();
+  const handleChange = (event) => {
+    props.handleChange(event);
   };
 
   return (

@@ -10,6 +10,8 @@ import '../styles/Form.scss';
 import SolutionLetters from './SolutionLetters';
 import ErrorLetters from './ErrorLetters';
 import Form from './Form';
+import Footer from './Footer';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const [word, setWord] = useState('');
@@ -40,7 +42,9 @@ function App() {
   };
 
   const getNumberOfErrors = () => {
-    const errorLetters = userLetters.filter((letter) => word.includes(letter) === false);
+    const errorLetters = userLetters.filter(
+      (letter) => word.includes(letter) === false
+    );
     return errorLetters.length;
   };
 
@@ -57,7 +61,10 @@ function App() {
   };
 
   const renderErrorLetters = () => {
-    const errorLetters = userLetters.filter((letter) => word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false);
+    const errorLetters = userLetters.filter(
+      (letter) =>
+        word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
+    );
     return errorLetters.map((letter, index) => {
       return (
         <li key={index} className='letter'>
@@ -83,15 +90,25 @@ function App() {
 
       <main className='main'>
         <section>
-          <SolutionLetters renderSolutionLetters={renderSolutionLetters}></SolutionLetters>
+          <SolutionLetters
+            renderSolutionLetters={renderSolutionLetters}
+          ></SolutionLetters>
 
           <ErrorLetters renderErrorLetters={renderErrorLetters}></ErrorLetters>
 
-          <Form handleSubmit={handleSubmit} handleKeyDown={handleKeyDown} handleChange={handleChange} lastLetter={lastLetter}></Form>
+          <Form
+            handleSubmit={handleSubmit}
+            handleKeyDown={handleKeyDown}
+            handleChange={handleChange}
+            lastLetter={lastLetter}
+          ></Form>
         </section>
 
-        <Dummy numberOfErrors={getNumberOfErrors}></Dummy>
+        <Dummy numberOfErrors={getNumberOfErrors()}></Dummy>
       </main>
+      <Routes>
+        <Route path='/Footer' element={<Footer></Footer>}></Route>
+      </Routes>
     </div>
   );
 }
