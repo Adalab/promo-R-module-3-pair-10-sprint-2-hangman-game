@@ -3,23 +3,27 @@ import '../styles/Footer.scss';
 
 function Footer() {
   return (
-    <footer class='footer'>
+    <footer className='footer'>
       <nav>
         <ul>
-          <li class='footer__menu-item'>
-            <NavLink to='/' class='footer__menu-link'>
+          <li className='footer__menu-item'>
+            <NavLink to='/' className='footer__menu-link'>
               A jugar
             </NavLink>
           </li>
-          <li class='footer__menu-item'>
-            <NavLink class='footer__menu-link active'>¿Cómo se juega?</NavLink>
+          <li className='footer__menu-item'>
+            <NavLink to='/instructions' className='footer__menu-link active'>
+              ¿Cómo se juega?
+            </NavLink>
           </li>
-          <li class='footer__menu-item'>
-            <NavLink class='footer__menu-link'>Más opciones</NavLink>
+          <li className='footer__menu-item'>
+            <NavLink to='/options' className='footer__menu-link'>
+              Más opciones
+            </NavLink>
           </li>
         </ul>
       </nav>
-      <small class='footer__copy'>© Adalab</small>
+      <small className='footer__copy'>© Adalab</small>
     </footer>
   );
 }

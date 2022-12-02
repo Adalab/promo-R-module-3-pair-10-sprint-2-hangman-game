@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import Dummy from './Dummy';
+import Instructions from './Instructions';
+import Options from './Options';
 // api
 import getWordFromApi from '../services/api';
 // styles
@@ -42,9 +44,7 @@ function App() {
   };
 
   const getNumberOfErrors = () => {
-    const errorLetters = userLetters.filter(
-      (letter) => word.includes(letter) === false
-    );
+    const errorLetters = userLetters.filter((letter) => word.includes(letter) === false);
     return errorLetters.length;
   };
 
@@ -61,10 +61,7 @@ function App() {
   };
 
   const renderErrorLetters = () => {
-    const errorLetters = userLetters.filter(
-      (letter) =>
-        word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false
-    );
+    const errorLetters = userLetters.filter((letter) => word.toLocaleLowerCase().includes(letter.toLocaleLowerCase()) === false);
     return errorLetters.map((letter, index) => {
       return (
         <li key={index} className='letter'>
@@ -89,26 +86,25 @@ function App() {
       <Header></Header>
 
       <main className='main'>
-        <section>
-          <SolutionLetters
-            renderSolutionLetters={renderSolutionLetters}
-          ></SolutionLetters>
-
-          <ErrorLetters renderErrorLetters={renderErrorLetters}></ErrorLetters>
-
-          <Form
-            handleSubmit={handleSubmit}
-            handleKeyDown={handleKeyDown}
-            handleChange={handleChange}
-            lastLetter={lastLetter}
-          ></Form>
-        </section>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <section>
+                <SolutionLetters renderSolutionLetters={renderSolutionLetters}></SolutionLetters>
+                <ErrorLetters renderErrorLetters={renderErrorLetters}></ErrorLetters>
+                <Form handleSubmit={handleSubmit} handleKeyDown={handleKeyDown} handleChange={handleChange} lastLetter={lastLetter}></Form>
+              </section>
+            }
+          />
+          <Route path='/instructions' element={<Instructions />} />
+          <Route path='/options' element={<Options />} />
+        </Routes>
 
         <Dummy numberOfErrors={getNumberOfErrors()}></Dummy>
       </main>
-      <Routes>
-        <Route path='/Footer' element={<Footer></Footer>}></Route>
-      </Routes>
+
+      <Footer></Footer>
     </div>
   );
 }
